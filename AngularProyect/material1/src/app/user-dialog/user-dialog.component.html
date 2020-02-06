@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>Acción <strong>{{action}}</strong></h1>
+
+<mat-dialog-content [formGroup]="form" *ngIf="!isShown"  class="row container-fluid">
+  <mat-form-field >
+    <input placeholder="UserName" matInput formControlName="UserName" required>
+    <mat-error *ngFor="let validation of account_validation_messages.username">
+      <mat-error class="error-message" *ngIf="form.get('UserName').hasError(validation.type) && (form.get('Email').dirty || form.get('Email').touched)">{{validation.message}}</mat-error>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field >
+    <input placeholder="Name" matInput formControlName="Name" required>
+    <mat-error *ngFor="let validation of account_validation_messages.name">
+      <mat-error class="error-message" *ngIf="form.get('Name').hasError(validation.type) && (form.get('Email').dirty || form.get('Email').touched)">{{validation.message}}</mat-error>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field >
+    <input placeholder="Email" matInput formControlName="Email" required >
+    <mat-error *ngFor="let validation of account_validation_messages.email">
+      <mat-error class="error-message" *ngIf="form.get('Email').hasError(validation.type) && (form.get('Email').dirty || form.get('Email').touched)">{{validation.message}}</mat-error>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field >
+    <input placeholder="Phone" matInput formControlName="Phone">
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<div *ngIf="isShown"  class="row container-fluid"  id="divshow">
+    Estas seguro de elimar a <b>{{_user.name}}</b>?
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="doAction()"  [disabled]="!form.valid">{{action}}</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+</div>
